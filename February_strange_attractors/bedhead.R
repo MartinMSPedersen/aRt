@@ -1,3 +1,6 @@
+library(Rcpp)
+library(tidyverse)
+
 #bedhead
 cppFunction('DataFrame createTrajectory(int n, double x0, double y0, 
             double a, double b) {
@@ -46,6 +49,13 @@ df3_clip <- df3 %>%
   filter(y > ymin & y < ymax)
 
 #plot
+opt <- theme(legend.position  = "none",
+            panel.background = element_rect(fill="black"),
+            axis.ticks       = element_blank(),
+            panel.grid       = element_blank(),
+            axis.title       = element_blank(),
+            axis.text        = element_blank())
+
 ggplot(df3_clip, aes(x, y)) + 
   geom_point(aes(color = dist), shape=46, alpha=.01) + 
   scale_color_gradientn(colors=pulse_pal(500)) +
